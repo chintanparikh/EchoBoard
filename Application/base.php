@@ -37,7 +37,7 @@ class Application
 			extract($data);
 		}
 		ob_start();
-		require_once( VIEW_PATH . $fileName . '.php' ); 
+		require_once( VIEW_PATH . '/' . $fileName . '.php' ); 
 		ob_end_flush();
 		return $this;
 	}
@@ -50,8 +50,16 @@ class Application
 
 	public function loadConfig($fileName)
 	{
-		require_once( BASE_PATH . '/Config/' . $fileName . '.php' );
-		return $config;
+		$config = '';
+		$path = BASE_PATH . '/Config/' . $fileName . '.php';
+		if( file_exists($path)){
+			require( BASE_PATH . '/Config/' . $fileName . '.php' );
+			return $config;
+		}
+		else{
+			throw new Exception('Config file does not exist!');
+		}
+
 	}
 
 }

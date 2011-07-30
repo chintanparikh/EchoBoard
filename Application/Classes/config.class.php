@@ -8,7 +8,8 @@ class Config
 
 	public function getInstance()
 	{
-		if(!self::$instance){
+		if(!self::$instance)
+		{
 			self::$instance = new Config;
 		}
 
@@ -23,14 +24,28 @@ class Config
 	public function __call($method, $property)
 	{
 		$config = Application::loadConfig($method);
-		return $config[$method][$property];
+		if( is_array($config[$method] ))
+		{
+			return $config[$method][$property[0]];
+		}
+		else
+		{
+			throw new Exception('Config file is not an array?');
+		}
 		//Allows us to something like Config::database('host')
 	}
 
 	public static function __callStatic($method, $property)
 	{
 		$config = Application::loadConfig($method);
-		return $config[$method][$property[0]];
+		if( is_array($config[$method] ))
+		{
+			return $config[$method][$property[0]];
+		}
+		else
+		{
+			throw new Exception('Config file is not an array?');
+		}
 		//Allows us to something like Config::database('host')
 	}
 }
