@@ -48,7 +48,7 @@ class User
 	* Logs a user in
 	*
 	*/
-	public function login($username, $password)
+	public function login($username, $password), $rememberMe = true)
 	{
 		$username = $this->sanitize($username);
 		$password = $this->encrypt($this->sanitize($password));
@@ -58,6 +58,7 @@ class User
 		if( $result )
 		{
 			#start the session
+			#cookies, if rememberMe is true
 			return true;
 		}
 		else
