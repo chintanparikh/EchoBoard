@@ -36,7 +36,7 @@ class User
 		$username = $this->sanitize($username);
 		$password = $this->sanitize($password);
 		$email = $this->sanitize($email);
-
+		# need to check if username already taken, but that probably goes outside of this function
 		$query = "INSERT INTO {$this->table} VALUES ('', ?, ?, ?)";
 		$this->database->prepare($query)
 						->execute($username, $this->encrypt($password), $email);
@@ -51,10 +51,28 @@ class User
 	public function login($username, $password)
 	{
 		$username = $this->sanitize($username);
-		$password = $this->sanitize($password);
-		# check if credentials are correct
-		# start the session
-		# return true on success, false on fail.
+		$password = $this->encrypt($this->sanitize($password));
+		
+		$result = $this->checkCredentials($username, $password);
+		#we also want to make sure that if $result returns more than one row, it fails. This still needs to be added.
+		if( $result )
+		{
+			#start the session
+			return true;
+		}
+		else
+		{
+			return false;	
+		}
+	}
+
+	public function checkCredentials($username, $password)
+	{
+		$query = "SELECT * FROM {$this->table} WHERE username = ? AND password = ?";
+		$result = $this->database->prepare($query)
+						->execute($username, $password)
+						->fetchAll();
+		return $result;
 	}
 
 	/**

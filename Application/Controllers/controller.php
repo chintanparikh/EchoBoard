@@ -14,8 +14,10 @@ class Controller extends Application
 
 		$db = Database::getInstance($databaseInfo);
 		$user = new User();
-		$user->register('random', 'random', 'random');
+
+		#$user->register('random', 'random', 'random');
 		
+		print $user->login('random', 'random');
 		 
 		$this->loadModel('model');
 		$data = $this->model['model']->dummyFunction();
