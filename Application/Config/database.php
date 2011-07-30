@@ -1,9 +1,7 @@
 <?php
-
-$config['db']['host'] = 'localhost';
-$config['db']['port'] = '3306';
-$config['db']['name'] = 'EchoBoard';
-$config['db']['username'] = 'root';
-$config['db']['password'] = '';
-
+$config['database']['host'] = 'localhost';
+$config['database']['port'] = '3306';
+$config['database']['name'] = 'EchoBoard';
+$config['database']['username'] = 'root';
+$config['database']['password'] = '';
 ?>

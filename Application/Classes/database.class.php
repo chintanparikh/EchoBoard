@@ -10,7 +10,8 @@
  *
  *
  */
-class Database {
+class Database 
+{
 
     /************PROPERTIES************/
 

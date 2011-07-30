@@ -16,6 +16,9 @@ class User
 		{
 			throw new Exception('Database class not present, you MUST include the database class and instantiate it before creating a User object.');
 		}
+
+		Application::loadConfig('user');
+		extract($config['user']); //allows use of $this->table
 	}
 
 	public function __destruct()
@@ -33,8 +36,11 @@ class User
 		$username = $this->sanitize($username);
 		$password = $this->sanitize($password);
 		$email = $this->sanitize($email);
-		# insert variables into the database
-		# return true on success, throw Exception(s) on fail
+		$database->connect()
+				 ->prepare("INSERT INTO ? VALUES ('', ?, ?, ?)")
+				 ->execute($this->table, $username, $password, $email);
+
+		return true;
 	}
 
 	/**

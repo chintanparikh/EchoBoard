@@ -8,7 +8,12 @@ class Application
 	
 	public function __construct()
 	{
-		$this->loadConfig('config');
+		require 'Classes/config.class.php';
+		define("CONTROLLER_PATH", Config::main('controllerPath'));
+		define("MODEL_PATH", Config::main('modelPath'));
+		define("VIEW_PATH", Config::main('viewPath'));
+		define("CLASS_PATH", Config::main('classPath'));
+
 	}
 
 	public function loadController($fileName)
@@ -23,7 +28,6 @@ class Application
 		require_once( MODEL_PATH . '/' . $fileName . '.php' ); 
 		$this->model[$fileName] = new $fileName;
 		return $this;
-		
 	}
 
 	public function loadView($fileName, $data = nul)
@@ -33,7 +37,7 @@ class Application
 			extract($data);
 		}
 		ob_start();
-		require_once( 'Application/Views/' . $fileName . '.php' ); 
+		require_once( VIEW_PATH . $fileName . '.php' ); 
 		ob_end_flush();
 		return $this;
 	}
@@ -47,7 +51,7 @@ class Application
 	public function loadConfig($fileName)
 	{
 		require_once( BASE_PATH . '/Config/' . $fileName . '.php' );
-		return $this;
+		return $config;
 	}
 
 }
