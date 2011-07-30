@@ -2,5 +2,14 @@ EchoBoard
 
 README coming soon!
 
+
+The database:
+Create a database with the name EchoBoard (or something else, you can change in the config)
+Create table `users` with rows:
+ `id` - type: int(128) - make this the primary key, and allow it to AUTO_INCREMENT
+ `username` - type: varchar(128)
+ `password` - type: varchar(128)
+ `email` - type: varchar (128) 
+
 License: Creative Commons
 	
