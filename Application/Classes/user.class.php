@@ -5,12 +5,13 @@
 class User
 {
 	public $database;
+	public $table;
 	
 	public function __construct()
 	{
 		if( class_exists('Database') )
 		{
-			$database = Database::getInstance(); //Notice we are NOT passing through database information here, it should have already been done. We are simply accessing the instance of the database object.
+			$this->database = Database::getInstance(); //Notice we are NOT passing through database information here, it should have already been done. We are simply accessing the instance of the database object.
 		}
 		else
 		{
@@ -18,7 +19,7 @@ class User
 		}
 
 		Application::loadConfig('user');
-		extract($config['user']); //allows use of $this->table
+		$this->table = Config::user('table');
 	}
 
 	public function __destruct()
@@ -36,9 +37,10 @@ class User
 		$username = $this->sanitize($username);
 		$password = $this->sanitize($password);
 		$email = $this->sanitize($email);
-		$database->connect()
-				 ->prepare("INSERT INTO ? VALUES ('', ?, ?, ?)")
-				 ->execute($this->table, $username, $password, $email);
+
+		$query = "INSERT INTO {$this->table} VALUES ('', ?, ?, ?)";
+		$this->database->prepare($query)
+					   ->execute($username, $password, $email);
 
 		return true;
 	}

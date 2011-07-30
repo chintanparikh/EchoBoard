@@ -6,19 +6,17 @@ class Controller extends Application
 {
 	
 	function __construct()
-	{
-		/*
-		print_r($config);
-		$this->loadConfig('database');
+	{	
+		$databaseInfo = Config::database();
 		$this->loadClass('database');
 		$this->loadClass('user');
 
 
-		$db = Database::getInstance($config['db']);
+		$db = Database::getInstance($databaseInfo);
 		$user = new User();
 		$user->register('timtam', 'timtam', 'timtam');
 		print 'Done';
-		*/
+		
 		 
 		$this->loadModel('model');
 		$data = $this->model['model']->dummyFunction();

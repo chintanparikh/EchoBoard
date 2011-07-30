@@ -127,19 +127,13 @@ class Database
      */
     private function __construct(array $databaseInfo)
     {
-        /*
-        try{
-            if(!is_array($databaseInfo)){
-                throw new Exception('Database Information is not an array');
-            }
-        }
-        */
         extract($databaseInfo);
         $this->host = $host;
         $this->port = $port;
         $this->databaseName = $name;
         $this->username = $username;
         $this->password = $password;
+        $this->connect();
         
                 
     }
