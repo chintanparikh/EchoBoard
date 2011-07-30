@@ -13,7 +13,7 @@ class Application
 
 	public function loadController($fileName)
 	{
-		require_once( CLASS_PATH . '/' . $fileName . '.php' ); 
+		require_once( CONTROLLER_PATH . '/' . $fileName . '.php' ); 
 		$controller = new $fileName;
 		return $this;
 	}
