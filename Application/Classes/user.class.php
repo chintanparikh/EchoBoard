@@ -18,7 +18,6 @@ class User
 			throw new Exception('Database class not present, you MUST include the database class and instantiate it before creating a User object.');
 		}
 
-		Application::loadConfig('user');
 		$this->table = Config::user('table');
 	}
 
@@ -40,7 +39,7 @@ class User
 
 		$query = "INSERT INTO {$this->table} VALUES ('', ?, ?, ?)";
 		$this->database->prepare($query)
-					   ->execute($username, $password, $email);
+						->execute($username, $this->encrypt($password), $email);
 
 		return true;
 	}
@@ -108,6 +107,14 @@ class User
 
 		$output = preg_replace($search, '', $input);
 		return $output;
+    }
+
+    /**
+    *
+    */
+    protected function encrypt($password)
+    {
+    	return md5(sha1($password) . md5($password));
     }
 }
 ?>

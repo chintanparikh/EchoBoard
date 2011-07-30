@@ -14,8 +14,7 @@ class Controller extends Application
 
 		$db = Database::getInstance($databaseInfo);
 		$user = new User();
-		$user->register('timtam', 'timtam', 'timtam');
-		print 'Done';
+		$user->register('random', 'random', 'random');
 		
 		 
 		$this->loadModel('model');
