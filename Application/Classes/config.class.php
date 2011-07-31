@@ -39,7 +39,7 @@ class Config
 			return $config[$method];
 		}
 
-			
+		#needs to be modified and made more efficient, currently it will fetch the same file more than once with no 'caching'
 		//Allows us to something like Config::database('host')
 	}
 
@@ -61,6 +61,7 @@ class Config
 			return $config[$method];
 		}
 
+		#needs to be modified and made more efficient, currently it will fetch the same file more than once with no 'caching'
 			
 		//Allows us to something like Config::database('host')
 	}
