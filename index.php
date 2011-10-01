@@ -1,8 +1,7 @@
 <?php 
-define("BASE_PATH", "Application");
-require 'Application/base.php';
+define("BASE_PATH", "Serene");
+require BASE_PATH . '/base.php';
 
 $application = new Application();
-$application->loadController('controller');
-
+$application->start();
 ?>
